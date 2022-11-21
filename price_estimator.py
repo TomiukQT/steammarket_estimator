@@ -30,15 +30,15 @@ def process(data: pd.DataFrame):
                                  start_P=0, seasonal=False,
                                  d=0, trace=False,
                                  information_criterion='bic',
-                               stepwise=True)
+                                 stepwise=True)
     model = ARIMA(df, order=stepwise_fit.to_dict()['order'], trend='n')
 
 
     res = model.fit()
-    preds = res.get_prediction(end='2024-12-31')
-
+    preds = res.get_prediction(end='2022-12-31')
     ci = preds.conf_int()
-    fig = ci.plot(color='grey', figsize=(10, 5))
+    #fig = ci.plot(color='grey', figsize=(10, 5))
+    fig = plt.figure()
     res.data.orig_endog.plot(label='data', marker='.', fig=fig)
     preds.predicted_mean.plot(label='predictions', fig=fig)
     plt.legend()
